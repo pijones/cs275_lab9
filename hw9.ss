@@ -1,6 +1,5 @@
 ;HW9
 ;Paul Jones
-;Dan Barella
 ;Laura Watiker
 
 (require "stream.ss")
@@ -22,3 +21,21 @@
     (cond
       [(eq? (car$ s) x)(cons$ y (subst-all x y (cdr$ s)))]
       [else (cons$ (car$ s) (subst-all x y (cdr$ s)))])))
+
+(define member$    
+
+	                 (lambda (x s) 
+
+	                      (cond 
+
+	                           [(eq? x (car$ s)) #t] 
+             
+	                           [else (member$ x (cdr$ s))]))) 
+
+;heres where i would put section 2, if i understood it
+
+
+
+;section 3
+
+
