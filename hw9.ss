@@ -36,6 +36,20 @@
 
 
 
-;section 3
+;exercise 3
+(define pairsFrom$
+     (lambda (p)
+          (cons$ p (pairsFrom$ (nextPair p)))))
+
+(define pairs$ (pairsFrom$ (cons 1 1)))
+
+(define nextPair
+  (lambda (p)
+    (cond
+      [(eq? (cdr p) 1) (cons 1 (+ 1 (car p)))]
+      [else (cons (+ 1 (car p)) (- (cdr p) 1))])))
+
+
+;exercise 4
 
 
