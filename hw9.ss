@@ -73,3 +73,14 @@
       [(< (car$ s1) (car$ s2)) (cons$ (car$ s1) (merge$ (cdr$ s1) s2))]
       [(< (car$ s2) (car$ s1)) (cons$ (car$ s2) (merge$ (cdr$ s2) s1))]
       [else (cons$ (car$ s1) (merge$ (cdr$ s1) (cdr$ s2)))])))
+
+
+;exercise 5
+(define *$
+
+                   (lambda (s1 s2) 
+
+                            (cons$ (* (car$ s1) (car$ s2)) (*$ (cdr$ s1) (cdr$ s2)))))
+
+(define fact-stream$    
+     (cons$ 1 (*$ fact-stream$ (IntsFrom$ 1))))  
