@@ -22,7 +22,7 @@
       [(eq? (car$ s) x)(cons$ y (subst-all x y (cdr$ s)))]
       [else (cons$ (car$ s) (subst-all x y (cdr$ s)))])))
 
-(define member$    
+(define member$2    
 
 	                 (lambda (x s) 
 
@@ -30,16 +30,26 @@
 
 	                           [(eq? x (car$ s)) #t] 
              
-	                           [else (member$ x (cdr$ s))]))) 
+	                           [else (member$2 x (cdr$ s))]))) 
 
 ;heres where i would put section 2, if i understood it
 
+(define member$
+  (lambda (x s less-than-or-equal)
+    (cond
+      [(eq? x (car$ s)) #t]
+      [else (if (less-than-or-equal x (car$ s)) (member$ x (cdr$ s) less-than-or-equal) #f)])))
 
+<<<<<<< HEAD
 
 ;exercise 3
 (define pairsFrom$
      (lambda (p)
           (cons$ p (pairsFrom$ (nextPair p)))))
+=======
+;(print$ (member$ '6 (IntsFrom$ 0)(lambda (x y) (<= x y))))
+;section 3
+>>>>>>> Added in Exercise 3, dunno if it works.
 
 (define pairs$ (pairsFrom$ (cons 1 1)))
 
