@@ -51,5 +51,15 @@
 
 
 ;exercise 4
+;doesn't?? wtf is (scale???)
+(define S
+  (cons$ 1 (merge$ (scale S 2) (merge$ (scale S 3) (scale S 5)))))
 
 
+;works!
+(define merge$
+  (lambda (s1 s2)
+    (cond
+      [(< (car$ s1) (car$ s2)) (cons$ (car$ s1) (merge$ (cdr$ s1) s2))]
+      [(< (car$ s2) (car$ s1)) (cons$ (car$ s2) (merge$ (cdr$ s2) s1))]
+      [else (cons$ (car$ s1) (merge$ (cdr$ s1) (cdr$ s2)))])))
