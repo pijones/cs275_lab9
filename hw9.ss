@@ -118,7 +118,21 @@
 (define grune-a-b
   (lambda (s)
      (cond
+       [(eq? 'the-empty-stream (car$ s)) 'done]
        [(eq? 'a (car$ s)) (if (eq? (car$ (cdr$ s)) 'a) 
                               (cons$ 'b (grune-a-b (cdr$ (cdr$ s))))
-                              (cons$ (car$ (cdr$ s)) (grune-a-b (cdr$ (cdr$ s)) )))]
-       [else (cons$ s (grune-a-b (cdr$ s)))])))
+                              (cons$ (car$ s) (cons$ (car$ (cdr$ s)) (grune-a-b (cdr$ (cdr$ s)) ))))]
+       [else (cons$ (car$ s) (grune-a-b (cdr$ s)))])))
+
+;Exercise 8
+(define grune
+  (lambda (a b)
+    (letrec ([f 
+    (lambda (s)
+      (cond
+        [(eq? 'the-empty-stream (car$ s)) 'done]
+       [(eq? a (car$ s)) (if (eq? (car$ (cdr$ s)) a) 
+                              (cons$ b (f(cdr$ (cdr$ s))))
+                              (cons$ (car$ s) (cons$ (car$ (cdr$ s)) (f (cdr$ (cdr$ s)) ))))]
+       [else (cons$ (car$ s) (f (cdr$ s)))]))])
+      f)))
