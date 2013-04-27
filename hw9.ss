@@ -3,6 +3,7 @@
 ;Laura Watiker
 
 (require "stream.ss")
+(load "keyboard.ss")
 
 (define IntsFrom$ (lambda (n) (cons$ n (IntsFrom$ (+ n 1)))))
 (define Ints$ (IntsFrom$ 0))
@@ -15,6 +16,8 @@
     (cond
       [(eq? (car$ s) x)(rember-all x (cdr$ s))]
       [else (cons$ (car$ s) (rember-all x (cdr$ s)))])))
+
+(define hamming Ints$)
 
 (define subst-all
   (lambda (x y s)
@@ -62,15 +65,8 @@
 
 ;exercise 4
 ;doesn't?? wtf is (scale???)
-(define S
-  (cons$ 1 (merge$ s2 (merge$ s3 s5))))
 
-(define s2
-  (map$ (lambda (x) (* 2 x))  Ints$))
-(define s3
-  (map$ (lambda (x) (* 3 x))  Ints$))
-(define s5
-  (map$ (lambda (x) (* 5 x)) Ints$))
+
 ;works!
 (define merge$
   (lambda (s1 s2)
@@ -78,6 +74,32 @@
       [(< (car$ s1) (car$ s2)) (cons$ (car$ s1) (merge$ (cdr$ s1) s2))]
       [(< (car$ s2) (car$ s1)) (cons$ (car$ s2) (merge$ (cdr$ s2) s1))]
       [else (cons$ (car$ s1) (merge$ (cdr$ s1) (cdr$ s2)))])))
+;
+;(define s3
+;  (append '( 1 1 1) (map$ (lambda (x) (* 3 x))  s5)))
+
+(define s2
+  (map$ (lambda (x) (* 2 x)) hamming))
+(define s3
+  (map$ (lambda (x) (* 3 x)) hamming))
+(define s5
+  (map$ (lambda (x) (* 5 x)) hamming))
+
+(define 2sq
+  (map$ (lambda (x) (* 2 x)) s2))
+(define 3sq
+  (map$ (lambda (x) (* 3 x)) s3))
+(define 5sq
+  (map$ (lambda (x) (* 5 x)) s5))
+
+(define s3-2
+  (append '(2 3) (map$ (lambda (x) (* 3 x))  2sq)))
+(define trial
+  (map$ (lambda (x) (* 5 x)) s3-2))
+(define s5-2
+  (map$ (lambda (x) (* 5 x)) trial))
+(define s5-3
+  (map$ (lambda (x) (* 5 x)) s5-2))
 
 
 ;exercise 5
@@ -89,3 +111,14 @@
 
 (define fact-stream$    
      (cons$ 1 (*$ fact-stream$ (IntsFrom$ 1))))  
+
+;Section 6
+
+;Excercise 7
+(define grune-a-b
+  (lambda (s)
+     (cond
+       [(eq? 'a (car$ s)) (if (eq? (car$ (cdr$ s)) 'a) 
+                              (cons$ 'b (grune-a-b (cdr$ (cdr$ s))))
+                              (cons$ (car$ (cdr$ s)) (grune-a-b (cdr$ (cdr$ s)) )))]
+       [else (cons$ s (grune-a-b (cdr$ s)))])))
