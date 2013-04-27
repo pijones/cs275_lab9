@@ -40,16 +40,16 @@
       [(eq? x (car$ s)) #t]
       [else (if (less-than-or-equal x (car$ s)) (member$ x (cdr$ s) less-than-or-equal) #f)])))
 
-<<<<<<< HEAD
+
 
 ;exercise 3
 (define pairsFrom$
      (lambda (p)
           (cons$ p (pairsFrom$ (nextPair p)))))
-=======
+
 ;(print$ (member$ '6 (IntsFrom$ 0)(lambda (x y) (<= x y))))
 ;section 3
->>>>>>> Added in Exercise 3, dunno if it works.
+
 
 (define pairs$ (pairsFrom$ (cons 1 1)))
 
@@ -63,9 +63,14 @@
 ;exercise 4
 ;doesn't?? wtf is (scale???)
 (define S
-  (cons$ 1 (merge$ (scale S 2) (merge$ (scale S 3) (scale S 5)))))
+  (cons$ 1 (merge$ s2 (merge$ s3 s5))))
 
-
+(define s2
+  (map$ (lambda (x) (* 2 x))  Ints$))
+(define s3
+  (map$ (lambda (x) (* 3 x))  Ints$))
+(define s5
+  (map$ (lambda (x) (* 5 x)) Ints$))
 ;works!
 (define merge$
   (lambda (s1 s2)
