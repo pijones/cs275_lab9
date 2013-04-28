@@ -63,9 +63,21 @@
 
 ;TO DO
 ;Exercise 4 - part 2
+(define Power$ (lambda (x) (cons$ 1 (map$ (lambda (t) (* x t)) (Power$ x)))))
 
+(define sq$ (merge$ (Power$ 5) (merge$ (Power$ 3) (Power$ 2))))
 
-;exercise 5
+(define s2
+  (map$ (lambda (x) (* x 2)) sq$))
+(define s3
+  (map$ (lambda (x) (* x 3)) sq$))
+(define s5
+  (map$ (lambda (x) (* x 5)) sq$))
+
+(define S
+  (cons$ 1 (merge$ s2 (merge$ s3 s5))))
+
+;Exercise 5
 (define *$
   
   (lambda (s1 s2) 
