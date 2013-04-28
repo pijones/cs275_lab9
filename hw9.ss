@@ -64,6 +64,7 @@
 ;TO DO
 ;Exercise 4 - part 2
 
+
 ;exercise 5
 (define *$
   
@@ -72,9 +73,35 @@
     (cons$ (* (car$ s1) (car$ s2)) (*$ (cdr$ s1) (cdr$ s2)))))
 
 (define fact-stream$    
-  (cons$ 1 (*$ fact-stream$ (IntsFrom$ 1))))  
+  (cons$ 1 (*$ fact-stream$ (IntsFrom$ 1))))
 
-;Section 6
+(define e-summands    
+  (lambda (s)      
+    (cons$ (/ 1 (car$ s)) (e-summands (cdr$ s)))))    
+
+(define e-series$ (e-summands fact-stream$))
+
+(define onezero$
+  (cons$ 1 (cons$ 0 (cons$ -1 (cons$ 0 onezero$)))))
+
+(define zeroone$
+  (cons$ 0 (cons$ 1 (cons$ 0 (cons$ -1 zeroone$)))))
+
+(define /$
+  
+  (lambda (s1 s2) 
+    
+    (cons$ (/ (car$ s1) (car$ s2)) (/$ (cdr$ s1) (cdr$ s2)))))
+
+(define subsine$
+  (/$ Ones$ fact-stream$))
+
+(define sin-series$
+  (*$ zeroone$ subsine$))
+
+(define cos-series$
+  (*$ onezero$ subsine$))
+
 
 ;Excercise 7
 (define grune-a-b
