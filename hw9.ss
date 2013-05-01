@@ -60,22 +60,14 @@
       [(< (car$ s2) (car$ s1)) (cons$ (car$ s2) (merge$ (cdr$ s2) s1))]
       [else (cons$ (car$ s1) (merge$ (cdr$ s1) (cdr$ s2)))])))
 
-
-;TO DO
 ;Exercise 4 - part 2
-(define Power$ (lambda (x) (cons$ 1 (map$ (lambda (t) (* x t)) (Power$ x)))))
 
-(define sq$ (merge$ (Power$ 5) (merge$ (Power$ 3) (Power$ 2))))
-
-(define s2
-  (map$ (lambda (x) (* x 2)) sq$))
-(define s3
-  (map$ (lambda (x) (* x 3)) sq$))
-(define s5
-  (map$ (lambda (x) (* x 5)) sq$))
+(define scale
+  (lambda (s n)
+    (map$ (lambda (x) (* n x)) s)))
 
 (define S
-  (cons$ 1 (merge$ s2 (merge$ s3 s5))))
+  (cons$ 1 (merge$ (merge$ (scale S 2) (scale S 3)) (scale S 5))))
 
 ;Exercise 5
 (define *$
